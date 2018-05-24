@@ -1,18 +1,11 @@
 <?php
+namespace App\Http\Tool\Sms\Ali;
 
-ini_set("display_errors", "on");
-
-require_once dirname(__DIR__) . 'ali/api_sdk/vendor/autoload.php';
-
-use Aliyun\Core\Config;
 use Aliyun\Core\Profile\DefaultProfile;
 use Aliyun\Core\DefaultAcsClient;
 use Aliyun\Api\Sms\Request\V20170525\SendSmsRequest;
 use Aliyun\Api\Sms\Request\V20170525\SendBatchSmsRequest;
 use Aliyun\Api\Sms\Request\V20170525\QuerySendDetailsRequest;
-
-// 加载区域结点配置
-Config::load();
 
 /**
  * Class SmsDemo
@@ -39,9 +32,10 @@ class AliSms
         $domain = "dysmsapi.aliyuncs.com";
 
         // TODO 此处需要替换成开发者自己的AK (https://ak-console.aliyun.com/)
-        $accessKeyId = \config(''); // AccessKeyId
 
-        $accessKeySecret = \config(''); // AccessKeySecret
+        $accessKeyId = config('sms.ali.access_key_id'); // AccessKeyId
+
+        $accessKeySecret = config('sms.ali.access_key_id'); // AccessKeySecret
 
         // 暂时不支持多Region
         $region = "cn-hangzhou";
@@ -66,9 +60,12 @@ class AliSms
 
     /**
      * 发送短信
+     * @param $template_code
+     * @param $phone_number
+     * @param $send_data
      * @return stdClass
      */
-    public static function sendSms() {
+    public function sendSms($template_code, $phone_number, $send_data) {
 
         // 初始化SendSmsRequest实例用于设置发送短信的参数
         $request = new SendSmsRequest();
@@ -77,19 +74,16 @@ class AliSms
         //$request->setProtocol("https");
 
         // 必填，设置短信接收号码
-        $request->setPhoneNumbers("12345678901");
+        $request->setPhoneNumbers($phone_number);
 
         // 必填，设置签名名称，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-        $request->setSignName("短信签名");
+        $request->setSignName(config('sms.ali.sign'));
 
         // 必填，设置模板CODE，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $request->setTemplateCode("SMS_0000001");
+        $request->setTemplateCode($template_code);
 
         // 可选，设置模板参数, 假如模板中存在变量需要替换则为必填项
-        $request->setTemplateParam(json_encode(array(  // 短信模板中字段的值
-            "code"=>"12345",
-            "product"=>"dsd"
-        ), JSON_UNESCAPED_UNICODE));
+        $request->setTemplateParam(json_encode($send_data, JSON_UNESCAPED_UNICODE));
 
 //        // 可选，设置流水号
 //        $request->setOutId("yourOutId");
