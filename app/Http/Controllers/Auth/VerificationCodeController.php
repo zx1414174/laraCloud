@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Auth;
 use Aliyun\AliSms;
 use App\Http\Requests\Auth\VerificationCode\StoreRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Tool\Common\HttpResponse;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class VerificationCodeController extends Controller
 {
@@ -19,12 +23,16 @@ class VerificationCodeController extends Controller
 	 */
 	public function store(StoreRequest $request, AliSms $aliSms)
 	{
-        $aliSms = app(AliSms::class);
-	    $aliSms->sendSms('SMS_135190170','13750528473',[
-	        'code' => 3324
+	    $code = str_pad(mt_rand(1,99999),0,5,STR_PAD_LEFT);
+	    $sms_result = $aliSms->sendSms('SMS_135190170',$request->phone,[
+	        'code' => $code
         ]);
-	    return response()->json([
-	       'success' => 'haha'
-        ]);
+	    if (isset($sms_result['Code']) && $sms_result['Code'] == 'OK') {
+            Cache::put($request->phone,$code,Carbon::now()->addMinute(20));
+        } else {
+	        Log::error($sms_result);
+            return (new HttpResponse())->error();
+        }
+        return (new HttpResponse())->success();
 	}
 }
