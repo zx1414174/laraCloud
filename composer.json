@@ -25,7 +25,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Aliyun\\": "packages/zx1414174/alisms/src/"
         }
     },
     "autoload-dev": {
