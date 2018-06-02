@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use http\Env\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 
@@ -51,8 +52,13 @@ class Handler extends ExceptionHandler
     		return response()->json([
     			'statusCode'=>400,
 				'message' => $exception->getMessage()
-			]);
-		}
+			])->setStatusCode(400);
+		} else {
+            return response()->json([
+                'statusCode'=>$exception->getCode(),
+                'message' => $exception->getMessage()
+            ])->setStatusCode($exception->getCode());
+        }
         return parent::render($request, $exception);
     }
 }

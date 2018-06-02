@@ -4,8 +4,8 @@
  */
 return [
     'ali' => [
-        'access_key_id' => 'LTAIxfeiWM6BtH0n',
-        'access_key_secret' => 'jUl03qZYQojbwpkTPXrsuTMySqnOoZ',
-        'sign' => 'pyh',
+        'access_key_id' => env('ALI_SMS_ACCESS_KEY_ID'),
+        'access_key_secret' => env('ALI_SMS_ACCESS_KEY_SECRET'),
+        'sign' => env('ALI_SMS_SIGN'),
     ]
 ];

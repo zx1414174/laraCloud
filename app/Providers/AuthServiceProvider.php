@@ -26,10 +26,16 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Passport::routes();
+        $this->registerPassport();
+    }
+    protected function registerPassport()
+    {
+        Passport::routes(null,[
+            'middleware'=> [
+                'auth.only_inside_access'
+            ]
+        ]);
         Passport::tokensExpireIn(Carbon::now()->addDays(15));
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
-        //
     }
 }
