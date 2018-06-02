@@ -27,4 +27,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * passpost 寻找唯一用户方法
+     * @param $username
+     * @author:pyh
+     * @time:2018/6/2
+     */
+    public function findForPassport($username)
+    {
+
+    }
 }

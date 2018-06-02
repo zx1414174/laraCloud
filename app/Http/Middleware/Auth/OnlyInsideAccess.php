@@ -5,7 +5,6 @@ namespace App\Http\Middleware\Auth;
 use App\Exceptions\Auth\AccessDeniedException;
 use App\Http\Tool\Common\InsideAccessTool;
 use Closure;
-use Illuminate\Support\Facades\Storage;
 
 class OnlyInsideAccess
 {
