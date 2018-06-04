@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
 	Route::group(['prefix' => 'register'], function () {
-		Route::post('/', 'RegisterController@register');//注册
+		Route::post('/', 'RegisterController@store');//注册
 	});
     Route::group(['prefix' => 'verification_code'], function () {
         Route::post('/', 'VerificationCodeController@store');//发送验证码

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Http\Action\User\CreateUser;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Auth\Register\StoreRequest;
+use App\Http\Tool\Common\HttpResponse;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -20,32 +24,29 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     * @author:pyh
+     * @time:2018/6/4
      */
-    protected function validator(array $data)
+    public function store(StoreRequest $request)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        try {
+            DB::beginTransaction();
+            $verification_code = Cache::get($request->phone);
+            if ($request->verification_code !== $verification_code) {
+                throw new \Exception('验证码错误',400);
+            }
+            $user_model = (new CreateUser())->execute($request->all());
+            $http = new Client();
+            DB::commit();
+            return (new HttpResponse())->success();
+        } catch (\Throwable $exception) {
+            DB::rollback();
+            throw $exception;
+        }
+
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
 }

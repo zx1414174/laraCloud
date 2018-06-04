@@ -27,7 +27,7 @@ class VerificationCodeController extends Controller
 	    $sms_result = $aliSms->sendSms('SMS_135190170',$request->phone,[
 	        'code' => $code
         ]);
-	    if (isset($sms_result['Code']) && $sms_result['Code'] == 'OK') {
+	    if ($sms_result && $sms_result->Code == 'OK') {
             Cache::put($request->phone,$code,Carbon::now()->addMinute(20));
         } else {
 	        Log::error($sms_result);
