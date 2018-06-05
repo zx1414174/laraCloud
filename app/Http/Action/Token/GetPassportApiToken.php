@@ -8,7 +8,7 @@ namespace App\Http\Action\Token;
 
 use GuzzleHttp\Client;
 
-class getPassportApiToken
+class GetPassportApiToken
 {
     /**
      * 获取token信息
@@ -28,7 +28,7 @@ class getPassportApiToken
                 'client_secret' => env('OAUTH_APP_CLIENT_SECRET'),
                 'username'      => $username,
                 'password'      => $password,
-                'scope'         => '',
+                'scope'         => '*',
             ],
         ]);
         return json_decode($response->getBody()->getContents(),true);

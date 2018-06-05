@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Action\Token\GetPassportApiToken;
 use App\Http\Action\User\CreateUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Register\StoreRequest;
@@ -39,9 +40,9 @@ class RegisterController extends Controller
                 throw new \Exception('验证码错误',400);
             }
             $user_model = (new CreateUser())->execute($request->all());
-            $http = new Client();
+            Auth::guard('api')->login($user_model);
             DB::commit();
-            return (new HttpResponse())->success();
+            return (new HttpResponse())->data((new GetPassportApiToken())->execute());
         } catch (\Throwable $exception) {
             DB::rollback();
             throw $exception;
