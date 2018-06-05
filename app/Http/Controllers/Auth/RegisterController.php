@@ -40,9 +40,9 @@ class RegisterController extends Controller
                 throw new \Exception('验证码错误',400);
             }
             $user_model = (new CreateUser())->execute($request->all());
-            Auth::guard('api')->login($user_model);
             DB::commit();
-            return (new HttpResponse())->data((new GetPassportApiToken())->execute());
+            $token_data = (new GetPassportApiToken())->execute($user_model->phone, $user_model->password);
+            return (new HttpResponse())->data($token_data);
         } catch (\Throwable $exception) {
             DB::rollback();
             throw $exception;

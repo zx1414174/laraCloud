@@ -84,7 +84,7 @@ class HttpResponse
      * @author:pyh
      * @time:2018/5/25
      */
-    public function data($data, $code)
+    public function data($data, $code = 200)
     {
         return $this->response->json([
             $this->status_code_field_name => $code,

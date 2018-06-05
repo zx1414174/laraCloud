@@ -41,9 +41,9 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'passport',
-            'provider' => 'users',
+        'api' => [ //guard 标识
+            'driver' => 'passport', //主要处理类 驱动
+            'provider' => 'users',  //用户数据获取模式
         ],
     ],
 

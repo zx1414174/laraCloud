@@ -23,6 +23,11 @@ class VerificationCodeController extends Controller
 	 */
 	public function store(StoreRequest $request, AliSms $aliSms)
 	{
+	    //测试不发送短信 默认 1111
+	    if (env('APP_DEBUG') == true) {
+            Cache::put($request->phone,'1111',Carbon::now()->addMinute(20));
+            return (new HttpResponse())->success();
+        }
 	    $code = str_pad(mt_rand(1,99999),0,5,STR_PAD_LEFT);
 	    $sms_result = $aliSms->sendSms('SMS_135190170',$request->phone,[
 	        'code' => $code

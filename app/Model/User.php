@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -31,11 +32,13 @@ class User extends Authenticatable
     /**
      * passpost 寻找唯一用户方法
      * @param $username
+     * @return User|\Illuminate\Database\Eloquent\Model|null|object
      * @author:pyh
-     * @time:2018/6/2
+     * @time:2018/6/5
      */
     public function findForPassport($username)
     {
-
+        Log::error($username);
+        return $this->where('phone',$username)->first();
     }
 }
