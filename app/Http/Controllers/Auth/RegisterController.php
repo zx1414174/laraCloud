@@ -7,7 +7,9 @@ use App\Http\Action\User\CreateUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Register\StoreRequest;
 use App\Http\Tool\Common\HttpResponse;
+use App\Model\User;
 use GuzzleHttp\Client;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -39,14 +41,18 @@ class RegisterController extends Controller
             if ($request->verification_code !== $verification_code) {
                 throw new \Exception('验证码错误',400);
             }
-            $user_model = (new CreateUser())->execute($request->all());
+            (new CreateUser())->execute($request->all());
             DB::commit();
-            $token_data = (new GetPassportApiToken())->execute($user_model->phone, $user_model->password);
+            $token_data = (new GetPassportApiToken())->execute($request->phone, $request->password);
             return (new HttpResponse())->data($token_data);
-        } catch (\Throwable $exception) {
+        } catch (QueryException $exception) {
             DB::rollback();
             throw $exception;
+        } catch (\Throwable $exception) {
+            throw $exception;
         }
+
+
 
     }
 
