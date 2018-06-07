@@ -20,7 +20,6 @@ class GetPassportApiToken
      * @return array
      * @author:pyh
      * @time:2018/6/4
-     * @throws \App\Exceptions\Common\ParameterErrorException
      * @throws AuthTokenException
      */
     public function execute($username,$password):array
