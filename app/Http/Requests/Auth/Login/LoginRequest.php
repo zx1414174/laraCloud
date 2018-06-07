@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
         return [
 			'verification_code' => 'required|string',
 			'phone' => [
-				'required','string',new Phone(),'max:255','unique:users'
+				'required','string',new Phone(),'max:255'
 			],
 			'password' => 'required|string|min:6|confirmed',
         ];

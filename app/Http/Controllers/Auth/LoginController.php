@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Action\Token\GetPassportApiToken;
+use App\Http\Common\Actions\Token\GetPassportApiToken;
+use App\Http\Common\Traits\HttpResponseTrait;
 use App\Http\Controllers\Controller;
-use App\Http\Tool\Common\HttpResponse;
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\Login\LoginRequest;
 
 class LoginController extends Controller
 {
+    use HttpResponseTrait;
 	/**
 	 * 登录获取token
-	 * @param Request $request
+	 * @param LoginRequest $request
 	 * @return \Illuminate\Http\JsonResponse
 	 * @throws \App\Exceptions\Auth\Client\AuthTokenException
 	 */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
 	{
-		return (new HttpResponse())->data((new GetPassportApiToken())->execute($request->username,$request->password));
+		return $this->data((new GetPassportApiToken())->execute($request->username,$request->password));
 	}
 }

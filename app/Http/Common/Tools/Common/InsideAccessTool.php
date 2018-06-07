@@ -2,7 +2,7 @@
 /**
  * 内部接口调用 signature签名
  */
-namespace App\Http\Tool\Common;
+namespace App\Http\Common\Tools\Common;
 
 
 use App\Exceptions\Common\ParameterErrorException;

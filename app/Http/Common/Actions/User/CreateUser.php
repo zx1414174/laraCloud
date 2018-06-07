@@ -3,7 +3,7 @@
  * 新建用户动作
  */
 
-namespace App\Http\Action\User;
+namespace App\Http\Common\Actions\User;
 
 
 use App\Model\User;

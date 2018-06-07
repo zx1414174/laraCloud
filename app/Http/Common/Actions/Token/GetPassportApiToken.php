@@ -3,11 +3,11 @@
  * 获取passport api token
  */
 
-namespace App\Http\Action\Token;
+namespace App\Http\Common\Actions\Token;
 
 
 use App\Exceptions\Auth\Client\AuthTokenException;
-use App\Http\Tool\Common\InsideAccessTool;
+use App\Http\Common\Tool\Common\InsideAccessTool;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 

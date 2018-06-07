@@ -1,12 +1,12 @@
 <?php
 /**
- * 返回处理类
+ * 统一返回公共trait
  */
 
-namespace App\Http\Tool\Common;
+namespace App\Http\Common\Traits;
 
 
-class HttpResponse
+trait HttpResponseTrait
 {
     /*
      * $response 类
@@ -91,6 +91,4 @@ class HttpResponse
             'data' => $data,
         ]);
     }
-
-
 }
