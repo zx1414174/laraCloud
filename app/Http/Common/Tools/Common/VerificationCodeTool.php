@@ -7,6 +7,7 @@ namespace App\Http\Common\Tools\Common;
 
 
 use Aliyun\AliSms;
+use App\Exceptions\VerificationCode\SendSmsException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
@@ -18,7 +19,7 @@ class VerificationCodeTool
 	}
 	public static function get($key, $type)
 	{
-		Cache::tags([$type])->get($key);
+		return Cache::tags([$type])->get($key);
 	}
 
     /**
@@ -55,11 +56,17 @@ class VerificationCodeTool
      * @param $phone
      * @param $type
      * @return bool
+	 * @throws SendSmsException
      * @author:pyh
      * @time:2018/6/7
      */
     public static function sendSms($phone,$type) : bool
     {
+		//测试不发送短信 默认 1111
+		if (env('APP_DEBUG') == true) {
+			VerificationCodeTool::put($phone, $type,'1111');
+			return true;
+		}
         $code = VerificationCodeTool::makeCode($type);
         $alisms = app(AliSms::class);
         $sms_result = $alisms->sendSms(env('ALI_SMS_VERIFICATION_CODE_TEMPLATE'),$phone,[
@@ -69,7 +76,7 @@ class VerificationCodeTool
             VerificationCodeTool::put($phone, $type, $code);
             return true;
         }
-        return false;
+       throw new SendSmsException();
     }
 
 }

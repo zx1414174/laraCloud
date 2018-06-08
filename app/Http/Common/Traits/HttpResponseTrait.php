@@ -43,9 +43,9 @@ trait HttpResponseTrait
      * @author:pyh
      * @time:2018/5/25
      */
-    public function success($msg = '成功', $code = 200)
+    public function responseSuccess($msg = '成功', $code = 200)
     {
-        return $this->message($msg, $code);
+        return $this->responseMessage($msg, $code);
     }
 
     /**
@@ -56,9 +56,9 @@ trait HttpResponseTrait
      * @author:pyh
      * @time:2018/5/25
      */
-    public function error($msg = '失败', $code = 400)
+    public function responseError($msg = '失败', $code = 400)
     {
-        return $this->message($msg, $code);
+        return $this->responseMessage($msg, $code);
     }
 
     /**
@@ -69,7 +69,7 @@ trait HttpResponseTrait
      * @author:pyh
      * @time:2018/5/25
      */
-    public function message($msg, $code)
+    public function responseMessage($msg, $code)
     {
         return $this->response->json([
             $this->status_code_field_name => $code,
@@ -84,7 +84,7 @@ trait HttpResponseTrait
      * @author:pyh
      * @time:2018/5/25
      */
-    public function data($data, $code = 200)
+    public function responseData($data, $code = 200)
     {
         return $this->response->json([
             $this->status_code_field_name => $code,

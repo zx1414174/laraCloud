@@ -18,6 +18,6 @@ class LoginController extends Controller
 	 */
     public function login(LoginRequest $request)
 	{
-		return $this->data((new GetPassportApiToken())->execute($request->username,$request->password));
+		return $this->responseData((new GetPassportApiToken())->execute($request->username,$request->password));
 	}
 }
