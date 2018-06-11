@@ -1,7 +1,21 @@
 # laraCloud
-## composer install
-## php artisan migrate
-## php artisan passport:keys
+## 安装包
+```
+composer install
+```
+## 设置配置文件 .env 
+## 生成密钥 
+```
+php artisan key:generate
+```
+## 执行数据迁移
+```
+php artisan migrate
+```
+## 生成oauth文件
+```php
+php artisan passport:keys
+```
 ## 获取passport app token
 ```
 php artisan passport:client --password 
