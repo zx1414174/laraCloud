@@ -7,7 +7,7 @@ namespace App\Http\Common\Actions\Token;
 
 
 use App\Exceptions\Auth\Client\AuthTokenException;
-use App\Http\Common\Tool\Common\InsideAccessTool;
+use App\Http\Common\Tools\Common\InsideAccessTool;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
@@ -38,13 +38,17 @@ class GetPassportApiToken
             $response = $http_client->post(env('APP_URL').'/oauth/token', [
                 'form_params' => $form_params,
             ]);
-            return json_decode($response->getBody()->getContents(),true);
+            $response_data = json_decode($response->getBody()->getContents(),true);
+            if (isset($response_data['statusCode']) && $response_data['statusCode'] != 200) {
+                throw new AuthTokenException($response_data['message']);
+            }
+            return $response_data;
         } catch (RequestException $exception) {
             $contents = $exception->getResponse()->getBody()->getContents();
             $error_data = json_decode($contents,true);
             throw new AuthTokenException($error_data['message']);
         } catch (\Exception $exception) {
-            throw new AuthTokenException('获取token失败');
+            throw new AuthTokenException($exception->getMessage());
         }
 
     }

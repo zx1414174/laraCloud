@@ -3,7 +3,7 @@
 namespace App\Http\Middleware\Auth;
 
 use App\Exceptions\Auth\AccessDeniedException;
-use App\Http\Tool\Common\InsideAccessTool;
+use App\Http\Common\Tools\Common\InsideAccessTool;
 use Closure;
 
 class OnlyInsideAccess

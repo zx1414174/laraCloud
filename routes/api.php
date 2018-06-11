@@ -24,4 +24,7 @@ Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
     Route::group(['prefix' => 'verification_code'], function () {
         Route::post('/', 'VerificationCodeController@store');//发送验证码
     });
+    Route::group(['prefix' => 'login'], function () {
+        Route::post('/', 'LoginController@login');//发送验证码
+    });
 });

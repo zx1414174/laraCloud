@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             	'required',new Phone()
 			],
 			'type' => [
-				'required','in:register'
+				'required','in:register,login'
 			],
         ];
     }

@@ -17,9 +17,19 @@ trait HttpResponseTrait
      * @var string 状态码字段名
      */
     protected $status_code_field_name = 'statusCode';
-    public function __construct()
+
+    /**
+     * 获取返回函数
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @author pyh
+     * @time 2018/6/11h
+     */
+    protected function getResponse()
     {
-        $this->response = response();
+        if (!$this->response) {
+            $this->response = response();
+        }
+        return $this->response;
     }
 
     /**
@@ -31,7 +41,8 @@ trait HttpResponseTrait
      */
     public function setResponse(\Closure $closure)
     {
-        $closure($this->response);
+        $response = $this->getResponse();
+        $closure($response);
         return $this;
     }
 
@@ -71,7 +82,8 @@ trait HttpResponseTrait
      */
     public function responseMessage($msg, $code)
     {
-        return $this->response->json([
+        $response = $this->getResponse();
+        return $response->json([
             $this->status_code_field_name => $code,
             'message' => $msg,
         ]);
@@ -86,7 +98,8 @@ trait HttpResponseTrait
      */
     public function responseData($data, $code = 200)
     {
-        return $this->response->json([
+        $response = $this->getResponse();
+        return $response->json([
             $this->status_code_field_name => $code,
             'data' => $data,
         ]);

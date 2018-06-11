@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Action\Token\GetPassportApiToken;
-use App\Http\Action\User\CreateUser;
+use App\Exceptions\VerificationCode\CodeErrorException;
+use App\Http\Common\Actions\Token\GetPassportApiToken;
+use App\Http\Common\Actions\User\CreateUser;
+use App\Http\Common\Tools\Common\VerificationCodeTool;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Register\StoreRequest;
-use App\Http\Tool\Common\HttpResponse;
-use App\Model\User;
-use GuzzleHttp\Client;
+use App\Http\Common\Tools\Common\HttpResponse;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -37,10 +36,7 @@ class RegisterController extends Controller
     {
         try {
             DB::beginTransaction();
-            $verification_code = Cache::get($request->phone);
-            if ($request->verification_code !== $verification_code) {
-                throw new \Exception('验证码错误',400);
-            }
+            VerificationCodeTool::checkCode($request->phone,'register',$request->verification_code);
             (new CreateUser())->execute($request->all());
             DB::commit();
             $token_data = (new GetPassportApiToken())->execute($request->phone, $request->password);
@@ -51,9 +47,6 @@ class RegisterController extends Controller
         } catch (\Throwable $exception) {
             throw $exception;
         }
-
-
-
     }
 
 }

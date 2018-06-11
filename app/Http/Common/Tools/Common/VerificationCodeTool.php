@@ -7,6 +7,7 @@ namespace App\Http\Common\Tools\Common;
 
 
 use Aliyun\AliSms;
+use App\Exceptions\VerificationCode\CodeErrorException;
 use App\Exceptions\VerificationCode\SendSmsException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -44,12 +45,13 @@ class VerificationCodeTool
      * @return bool
      * @author:pyh
      * @time:2018/6/7
+     * @throws CodeErrorException
      */
     public static function checkCode($key, $type, $code) : bool
     {
         $save_code = VerificationCodeTool::get($key, $type);
         if ($save_code && $save_code == $code) return true;
-        return false;
+        throw new CodeErrorException();
     }
 
     /**
