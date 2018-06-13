@@ -18,6 +18,11 @@ Websocket::on('connect', function ($websocket, Request $request) {
     echo 'asdfasd';
 });
 
+Websocket::on('disconnect', function ($websocket) {
+	$websocket->emit('message', '再见 swoole');
+	echo 'asdfasd';
+});
+
 Websocket::on('close', function ($websocket) {
     $websocket->emit('message', '再见 swoole');
 });
