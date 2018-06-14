@@ -28,3 +28,7 @@ Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
         Route::post('/', 'LoginController@login');//发送验证码
     });
 });
+
+Route::group(['prefix' => 'chatroom','namespace'=>'Chatroom'], function () {
+    Route::get('/', 'ChatroomController@testUser');//发送验证码
+});

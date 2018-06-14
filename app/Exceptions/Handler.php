@@ -6,6 +6,7 @@ use App\Http\Common\Traits\HttpResponseTrait;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -51,7 +52,9 @@ class Handler extends ExceptionHandler
     {
     	if ($exception instanceof ValidationException) {
     	    return $this->responseMessage($exception->getMessage(),400);
-		} else {
+		} elseif($exception instanceof NotFoundHttpException) {
+    	    return $this->responseMessage('page not find',404);
+        } else {
             return $this->responseMessage($exception->getMessage(),$exception->getCode());
         }
         return parent::render($request, $exception);
