@@ -6,6 +6,8 @@
 namespace App\Http\Common\Traits;
 
 
+use App\Http\Common\Enums\HttpResponseEnum;
+
 trait HttpResponseTrait
 {
     /*
@@ -16,7 +18,7 @@ trait HttpResponseTrait
     /*
      * @var string 状态码字段名
      */
-    protected $status_code_field_name = 'statusCode';
+    protected $status_code_field_name = HttpResponseEnum::RESPONSE_CODE_FIELD_NAME;
 
     /**
      * 获取返回函数
@@ -54,7 +56,7 @@ trait HttpResponseTrait
      * @author:pyh
      * @time:2018/5/25
      */
-    public function responseSuccess($msg = '成功', $code = 200)
+    public function responseSuccess($msg = '成功', $code = HttpResponseEnum::SUCCESS)
     {
         return $this->responseMessage($msg, $code);
     }
@@ -67,7 +69,7 @@ trait HttpResponseTrait
      * @author:pyh
      * @time:2018/5/25
      */
-    public function responseError($msg = '失败', $code = 400)
+    public function responseError($msg = '失败', $code = HttpResponseEnum::ERROR)
     {
         return $this->responseMessage($msg, $code);
     }
@@ -85,7 +87,7 @@ trait HttpResponseTrait
         $response = $this->getResponse();
         return $response->json([
             $this->status_code_field_name => $code,
-            'message' => $msg,
+            HttpResponseEnum::RESPONSE_MESSAGE_FIELD_NAME => $msg,
         ]);
     }
 
@@ -96,12 +98,12 @@ trait HttpResponseTrait
      * @author:pyh
      * @time:2018/5/25
      */
-    public function responseData($data, $code = 200)
+    public function responseData($data, $code = HttpResponseEnum::SUCCESS)
     {
         $response = $this->getResponse();
         return $response->json([
             $this->status_code_field_name => $code,
-            'data' => $data,
+            HttpResponseEnum::RESPONSE_DATA_FIELD_NAME => $data,
         ]);
     }
 }

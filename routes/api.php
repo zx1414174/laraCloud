@@ -18,17 +18,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
-	Route::group(['prefix' => 'register'], function () {
-		Route::post('/', 'RegisterController@store');//注册
-	});
+    Route::group(['prefix' => 'register'], function () {
+        Route::post('/', 'RegisterController@store');//注册
+    });
     Route::group(['prefix' => 'verification_code'], function () {
         Route::post('/', 'VerificationCodeController@store');//发送验证码
     });
     Route::group(['prefix' => 'login'], function () {
-        Route::post('/', 'LoginController@login');//发送验证码
+        Route::post('/', 'LoginController@login');//登录
+    });
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', 'UserController@show')->name('auth.user.get');//获取用户信息
     });
 });
 
 Route::group(['prefix' => 'chatroom','namespace'=>'Chatroom'], function () {
-    Route::get('/', 'ChatroomController@testUser');//发送验证码
+    Route::get('/', 'ChatroomController@testUser');//聊天室测试
 });
