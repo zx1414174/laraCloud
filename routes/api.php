@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
     Route::group(['prefix' => 'register'], function () {
@@ -28,7 +28,7 @@ Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
         Route::post('/', 'LoginController@login');//登录
     });
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/', 'UserController@show')->name('auth.user.get');//获取用户信息
+        Route::get('/', 'UserController@show');//获取用户信息
     });
 });
 
