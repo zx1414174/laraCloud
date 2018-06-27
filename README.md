@@ -25,3 +25,7 @@ php artisan passport:client --password
 Client ID: 1
 Client Secret: xxxxxxT1BQnOxxxxxxmf6xxxxxx5EjUuAxxxxxxx
 ```
+## 安装前端包
+```
+npm install
+```
