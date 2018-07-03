@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
-	Route::group(['prefix' => 'register'], function () {
-		Route::get('/', 'RegisterController@showRegistrationForm');//获取注册页面
-	});
+    Route::group(['prefix' => 'register'], function () {
+        Route::get('/', 'RegisterController@showRegistrationForm');//获取注册页面
+    });
 });
