@@ -10,11 +10,12 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <meta content="email=no" name="format-detection" />
-    <link rel="stylesheet" type="text/css" href="{{asset('assert/css/reset.css')}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset('assert/css/main.css')}}" />
-    <link rel="stylesheet" href="{{asset('assert/iconfont/iconfont.css')}}">
-    <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
-    <link rel="stylesheet" href="{{asset('assert/css/detail.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('chatroom/assert/css/reset.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('chatroom/assert/css/main.css')}}" />
+    <link rel="stylesheet" href="{{asset('chatroom/assert/iconfont/iconfont.css')}}">
+    <link rel="shortcut icon" href="{{asset('chatroom/favicon.ico')}}">
+    <link rel="stylesheet" href="{{asset('chatroom/assert/css/detail.css')}}">
+    <link rel="stylesheet" href="{{asset('js/vue/vue.js')}}">
 </head>
 
 <body>
@@ -28,26 +29,26 @@
 </header>
 <div class="content">
     <div class="poster">
-        <img src="{{asset("imgs/match-poster.png")}}" class="post-img" />
+        <img src="{{asset("chatroom/imgs/match-poster.png")}}" class="post-img" />
         <div class="poster-title">
             <div class="poster-title-team">
-                <img src="{{asset("imgs/team1.png")}}" width="40px" height="40px">
+                <img src="{{asset("chatroom/imgs/team1.png")}}" width="40px" height="40px">
                 <div>马刺(50)</div>
             </div>
             <div>VS</div>
             <div class="poster-title-team">
-                <img src="{{asset("imgs/team2.png")}}" width="40px" height="40px">
+                <img src="{{asset("chatroom/imgs/team2.png")}}" width="40px" height="40px">
                 <div>火箭(52)</div>
             </div>
         </div>
     </div>
     <div class="tab-nav">
-        <div class="active">赛况</div>
-        <div>聊天室</div>
+        <div>赛况</div>
+        <div class="active" >聊天室</div>
         <div>数据</div>
     </div>
     <div class="tab-block">
-        <div id="match-result">
+        <div id="match-result" class="hidden">
             <div class="frame">
                 <h3 class="frame-header">
                     <i class="icon iconfont icon-shijian"></i>第一节 01：30
@@ -55,7 +56,7 @@
                 <div class="frame-item">
                     <span class="frame-dot"></span>
                     <div class="frame-item-author">
-                        <img src="{{asset("imgs/team1.png")}}" width="20px" height="20px" /> 马刺
+                        <img src="{{asset("chatroom/imgs/team1.png")}}" width="20px" height="20px" /> 马刺
                     </div>
                     <p>08:44 暂停 常规暂停</p>
                     <p>08:44 帕克 犯规 个人犯规 2次</p>
@@ -76,11 +77,11 @@
                 <div class="frame-item">
                     <span class="frame-dot"></span>
                     <div class="frame-item-author">
-                        <img src="{{asset("imgs/team2.png")}}" width="20px" height="20px" /> 火箭
+                        <img src="{{asset("chatroom/imgs/team2.png")}}" width="20px" height="20px" /> 火箭
                     </div>
                     <p>比赛如火如荼~~~</p>
                     <p>
-                        <img src="{{asset("imgs/1.png")}}" width="40%" />
+                        <img src="{{asset("chatroom/imgs/1.png")}}" width="40%" />
                     </p>
                 </div>
                 <div class="frame-item">
@@ -93,63 +94,20 @@
                 </div>
             </div>
         </div>
-        <div id="comments" class="hidden comments">
-            <div class="comment">
-                <span>xixi</span>
-                <span>赞~</span>
-            </div>
-            <div class="comment">
-                <span>xixi</span>
-                <span>赞~哈登mvp</span>
-            </div>
-            <div class="comment">
-                <span>singwa</span>
-                <span>哈登+克里斯-保罗 必定能夺冠，加油火箭！</span>
-            </div>
-            <div class="comment">
-                <span>mooc</span>
-                <span>詹姆斯去火箭吧~</span>
-            </div>
-            <div class="comment">
-                <span>singwa2</span>
-                <span>这场比赛太精彩了</span>
-            </div>
-            <div class="comment">
-                <span>singwa</span>
-                <span> 火箭目前位列西部第一，在击败独行侠之后，他们已经领先勇士1.5个胜场，而马刺的处境则是较为尴尬，他们目前拿到了37胜29负，只比身后的快船、掘金和爵士多0.5个胜场，如果马刺赢下火箭，他们将会继续保住西部前7的位置。</span>
-            </div>
-            <div class="comment">
-                <span>xixi</span>
-                <span>赞~</span>
-            </div>
-            <div class="comment">
-                <span>xixi</span>
-                <span>赞~dfdfgkkksds分担分担分担分担浮动</span>
-            </div>
-            <div class="comment">
-                <span>singwa</span>
-                <span>《烈火如歌》最近真是吸粉无数，各种话题随随便便就有成千上万的阅读量，本剧的点击量也轻轻松松破了十亿。看来热巴的高颜值和周渝民男神的实力演技，获得了大家的广泛肯...[详情]</span>
-            </div>
-            <div class="comment">
-                <span>xixi</span>
-                <span>赞~</span>
-            </div>
-            <div class="comment">
-                <span>xixi</span>
-                <span>赞~dfdfgkkksds分担分担分担分担浮动</span>
-            </div>
-            <div class="comment">
-                <span>singwa</span>
-                <span>《烈火如歌》最近真是吸粉无数，各种话题随随便便就有成千上万的阅读量，本剧的点击量也轻轻松松破了十亿。看来热巴的高颜值和周渝民男神的实力演技，获得了大家的广泛肯...[详情]</span>
+        <div id="comments" class="comments">
+            <div class="comment" v-for="comment in comments">
+                <span>@{{ comment.userName }}</span>
+                <span>:</span>
+                <span>@{{ comment.content }}</span>
             </div>
             <div class="comment-form">
-                <input type="text" placeholder="别憋着，说点啥~~ 回车既发射"></input>
+                <input type="text"  v-model="commentMessage" placeholder="别憋着，说点啥~~ 回车既发射"></input>
             </div>
         </div>
         <div id="match-data" class="hidden match-data">
             <div class="match-score">
                 <div class="match-team-info">
-                    <img src="{{asset("imgs/team1.png")}}" width="40px" height="40px" />
+                    <img src="{{asset("chatroom/imgs/team1.png")}}" width="40px" height="40px" />
                     <div>火箭</div>
                 </div>
                 <div class="match-score-result">
@@ -162,7 +120,7 @@
                     <div style="font-size: .8rem; color:#888;">NBA常规赛</div>
                 </div>
                 <div class="match-team-info">
-                    <img src="{{asset("imgs/team2.png")}}" width="40px" height="40px" />
+                    <img src="{{asset("chatroom/imgs/team2.png")}}" width="40px" height="40px" />
                     <div>雷霆</div>
                 </div>
             </div>
@@ -177,7 +135,7 @@
                     <span>总分</span>
                 </div>
                 <div class="match-report-row">
-                    <span><img src="{{asset("imgs/team1.png")}}" width="30px" height="30px" /></span>
+                    <span><img src="{{asset("chatroom/imgs/team1.png")}}" width="30px" height="30px" /></span>
                     <span>20</span>
                     <span>-</span>
                     <span>-</span>
@@ -186,7 +144,7 @@
                 </div>
                 <div class="match-report-row">
                     <span>
-                        <img src="{{asset("imgs/team2.png")}}" width="30px" height="30px" />
+                        <img src="{{asset("chatroom/imgs/team2.png")}}" width="30px" height="30px" />
                     </span>
                     <span>15</span>
                     <span>-</span>
@@ -199,7 +157,7 @@
                 <h3 class="sub-title">本场最佳</h3>
                 <div>
                     <div class="mvp-player">
-                        <img src="{{asset("imgs/pa.png")}}" width="50px;" height="40px" />
+                        <img src="{{asset("chatroom/imgs/pa.png")}}" width="50px;" height="40px" />
                         <div class="mvp-player-info">
                             <div>9</div>
                             <div>帕克</div>
@@ -215,12 +173,12 @@
                             <div>13</div>
                             <div>哈登</div>
                         </div>
-                        <img src="{{asset("imgs/ha.png")}}" width="50px;" height="40px" />
+                        <img src="{{asset("chatroom/imgs/ha.png")}}" width="50px;" height="40px" />
                     </div>
                 </div>
                 <div>
                     <div class="mvp-player">
-                        <img src="{{asset("imgs/pa.png")}}" width="50px;" height="40px" />
+                        <img src="{{asset("chatroom/imgs/pa.png")}}" width="50px;" height="40px" />
                         <div class="mvp-player-info">
                             <div>9</div>
                             <div>帕克</div>
@@ -232,7 +190,7 @@
                             <div>3</div>
                             <div>保罗</div>
                         </div>
-                        <img src="{{asset("imgs/bao.png")}}" width="50px;" height="40px" />
+                        <img src="{{asset("chatroom/imgs/bao.png")}}" width="50px;" height="40px" />
                     </div>
                 </div>
             </div>
@@ -240,4 +198,62 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="{{asset('js/vue/vue.js')}}"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '.content',
+        data: {
+            websock: null,
+            commentMessage : "hahah",
+            comments: [
+                {
+                    "userName" : "系统",
+                    "content" : "欢迎您进入聊天室"
+                }
+            ]
+        },
+        methods: {
+            threadPoxi(){  // 实际调用的方法
+                //参数
+                const agentData = "mymessage";
+                //若是ws开启状态
+                if (this.websock.readyState === this.websock.OPEN) {
+                    this.websocketsend(agentData)
+                }
+                // 若是 正在开启状态，则等待300毫秒
+                else if (this.websock.readyState === this.websock.CONNECTING) {
+                    let that = this;//保存当前对象this
+                    setTimeout(function () {
+                        that.websocketsend(agentData)
+                    }, 300);
+                }
+                // 若未开启 ，则等待500毫秒
+                else {
+                    this.initWebSocket();
+                    let that = this;//保存当前对象this
+                    setTimeout(function () {
+                        that.websocketsend(agentData)
+                    }, 500);
+                }
+            },
+            initWebSocket(){ //初始化weosocket
+                //ws地址
+                const wsuri = process.env.WS_API + "/websocket/threadsocket";
+                this.websock = new WebSocket(wsuri);
+                this.websock.onmessage = this.websocketonmessage;
+                this.websock.onclose = this.websocketclose;
+            },
+            websocketonmessage(e){ //数据接收
+                const redata = JSON.parse(e.data);
+                console.log(redata.value);
+            },
+            websocketsend(agentData){//数据发送
+                this.websock.send(agentData);
+            },
+            websocketclose(e){  //关闭
+                console.log("connection closed (" + e.code + ")");
+            }
+        },
+    })
+</script>
 </html>

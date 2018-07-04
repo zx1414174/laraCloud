@@ -24,3 +24,7 @@ Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
         Route::get('/', 'RegisterController@showRegistrationForm');//获取注册页面
     });
 });
+
+Route::group(['prefix' => 'chatroom','namespace'=>'Chatroom'], function () {
+    Route::get('/detail', 'ChatroomController@viewDetail');//获取注册页面
+});
