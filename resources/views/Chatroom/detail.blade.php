@@ -213,6 +213,14 @@
             ]
         },
         methods: {
+            getSendMessageData(){
+
+            },
+            setCookie (c_name, value, expiredays) {
+                var exdate = new Date();
+                exdate.setDate(exdate.getDate() + expiredays);
+                document.cookie = c_name + "=" + encodeURI(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString());
+            },
             threadPoxi(){  // 实际调用的方法
                 //参数
                 const agentData = "mymessage";
@@ -238,7 +246,7 @@
             },
             initWebSocket(){ //初始化weosocket
                 //ws地址
-                const wsuri = process.env.WS_API + "/websocket/threadsocket";
+                const wsuri = "ws://127.0.01:12150";
                 this.websock = new WebSocket(wsuri);
                 this.websock.onmessage = this.websocketonmessage;
                 this.websock.onclose = this.websocketclose;
@@ -252,6 +260,13 @@
             },
             websocketclose(e){  //关闭
                 console.log("connection closed (" + e.code + ")");
+            },
+            getCookie(name) {
+                var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                if (arr = document.cookie.match(reg))
+                    return (arr[2]);
+                else
+                    return null;
             }
         },
     })
