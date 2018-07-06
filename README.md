@@ -1,4 +1,4 @@
-# laraCloud
+# 初始化
 ## 安装包
 ```
 composer install
@@ -28,4 +28,14 @@ Client Secret: xxxxxxT1BQnOxxxxxxmf6xxxxxx5EjUuAxxxxxxx
 ## 安装前端包
 ```
 npm install
+```
+# webSocket
+## 启动文本socket
+```
+php artisan swoole:http start
+```
+## webSocket 请求规则
+### ["event",data]
+```
+["message",{"a":"asa"}]
 ```

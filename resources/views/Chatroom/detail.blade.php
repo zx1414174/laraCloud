@@ -214,7 +214,12 @@
         },
         methods: {
             getSendMessageData(){
-
+                sent_data = {
+                    "authorization_token" : "",
+                    "message": "",
+                };
+                sent_data.message = "";
+                return sent_data;
             },
             setCookie (c_name, value, expiredays) {
                 var exdate = new Date();
@@ -223,7 +228,9 @@
             },
             threadPoxi(){  // 实际调用的方法
                 //参数
-                const agentData = "mymessage";
+                const agentData = [
+                    "chatroom/message",
+                ];
                 //若是ws开启状态
                 if (this.websock.readyState === this.websock.OPEN) {
                     this.websocketsend(agentData)

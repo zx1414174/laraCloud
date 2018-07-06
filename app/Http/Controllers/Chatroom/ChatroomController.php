@@ -19,7 +19,7 @@ class ChatroomController extends Controller
     public function message($websocket, $data)
     {
         $user_arr = (new  HttpGetUser())->execute($data['authorization_token']);
-        Websocket::emit('data', json_encode($user_arr));
+        Websocket::emit("chatroom/message", 'hahaha');
     }
 
     public function viewDetail()
