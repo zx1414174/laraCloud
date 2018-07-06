@@ -101,7 +101,7 @@
                 <span>@{{ comment.content }}</span>
             </div>
             <div class="comment-form">
-                <input type="text"  v-model="commentMessage" placeholder="别憋着，说点啥~~ 回车既发射"></input>
+                <input type="text"  v-model="commentMessage" placeholder="别憋着，说点啥~~ 回车既发射" @keyup.enter="testSend"></input>
             </div>
         </div>
         <div id="match-data" class="hidden match-data">
@@ -214,12 +214,17 @@
         },
         methods: {
             getSendMessageData(){
-                sent_data = {
+                var sent_data = {
                     "authorization_token" : "",
                     "message": "",
                 };
-                sent_data.message = "";
+                sent_data.message = this.commentMessage;
                 return sent_data;
+            },
+            testSend()
+            {
+                var send_data = this.getSendMessageData();
+                alert(send_data.message)
             },
             setCookie (c_name, value, expiredays) {
                 var exdate = new Date();
