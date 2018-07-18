@@ -22,7 +22,7 @@ class HttpGetUser
     public function execute($authorization_token)
     {
         $http_client = new Client();
-        $url = env('APP_URL').'/api/auth/user';
+        $url = env('LOCAL_APP_URL').'/api/auth/user';
         Log::error($url);
         $res = $http_client->request('get', $url, [
             'headers' => [

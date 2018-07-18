@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sinwa图片直播 - 详情</title>
+    <title>图片直播 - 详情</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
@@ -101,7 +101,7 @@
                 <span>@{{ comment.content }}</span>
             </div>
             <div class="comment-form">
-                <input type="text"  v-model="commentMessage" placeholder="别憋着，说点啥~~ 回车既发射" @keyup.enter="testSend"></input>
+                <input type="text"  v-model="commentMessage" v-on:click="clearMessage" @keyup.enter="threadPoxi"></input>
             </div>
         </div>
         <div id="match-data" class="hidden match-data">
@@ -204,7 +204,7 @@
         el: '.content',
         data: {
             websock: null,
-            commentMessage : "hahah",
+            commentMessage : "别憋着，说点啥~~ 回车既发射",
             comments: [
                 {
                     "userName" : "系统",
@@ -213,6 +213,9 @@
             ]
         },
         methods: {
+            clearMessage() {
+                this.commentMessage = '';
+            },
             getSendMessageData(){
                 var sent_data = {
                     "authorization_token" : "",
@@ -220,11 +223,6 @@
                 };
                 sent_data.message = this.commentMessage;
                 return sent_data;
-            },
-            testSend()
-            {
-                var send_data = this.getSendMessageData();
-                alert(send_data.message)
             },
             setCookie (c_name, value, expiredays) {
                 var exdate = new Date();
@@ -236,6 +234,7 @@
                 const agentData = [
                     "chatroom/message",
                 ];
+                agentData.push(this.getSendMessageData())
                 //若是ws开启状态
                 if (this.websock.readyState === this.websock.OPEN) {
                     this.websocketsend(agentData)
@@ -258,17 +257,17 @@
             },
             initWebSocket(){ //初始化weosocket
                 //ws地址
-                const wsuri = "ws://127.0.01:12150";
+                const wsuri = "ws://192.168.5.250:2222";
                 this.websock = new WebSocket(wsuri);
                 this.websock.onmessage = this.websocketonmessage;
                 this.websock.onclose = this.websocketclose;
             },
             websocketonmessage(e){ //数据接收
-                const redata = JSON.parse(e.data);
-                console.log(redata.value);
+                //const redata = JSON.parse(e);
+                console.log(e);
             },
             websocketsend(agentData){//数据发送
-                this.websock.send(agentData);
+                this.websock.send(JSON.stringify(agentData));
             },
             websocketclose(e){  //关闭
                 console.log("connection closed (" + e.code + ")");
@@ -280,6 +279,9 @@
                 else
                     return null;
             }
+        },
+        created(){
+            this.initWebSocket()
         },
     })
 </script>

@@ -35,7 +35,7 @@ class GetPassportApiToken
                 'scope'         => '*',
             ];
             $form_params[InsideAccessTool::SIGN_FIELD_NAME] = InsideAccessTool::makeAccessParamSign($form_params);
-            $response = $http_client->post(env('APP_URL').'/oauth/token', [
+            $response = $http_client->post(env('LOCAL_APP_URL').'/oauth/token', [
                 'form_params' => $form_params,
             ]);
             $response_data = json_decode($response->getBody()->getContents(),true);
@@ -44,9 +44,15 @@ class GetPassportApiToken
             }
             return $response_data;
         } catch (RequestException $exception) {
-            $contents = $exception->getResponse()->getBody()->getContents();
-            $error_data = json_decode($contents,true);
-            throw new AuthTokenException($error_data['message']);
+            $response = $exception->getResponse();
+            if ($response) {
+                $contents = $exception->getResponse()->getBody()->getContents();
+                $error_data = json_decode($contents,true);
+                $message = $error_data['message'];
+            } else {
+                $message = '连接错误';
+            }
+            throw new AuthTokenException($message);
         } catch (\Exception $exception) {
             throw new AuthTokenException($exception->getMessage());
         }
