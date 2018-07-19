@@ -92,6 +92,7 @@ trait HttpResponseTrait
     }
 
     /**
+     * data数据返回
      * @param $data
      * @param $code
      * @return \Illuminate\Http\JsonResponse
@@ -101,9 +102,22 @@ trait HttpResponseTrait
     public function responseData($data, $code = HttpResponseEnum::SUCCESS)
     {
         $response = $this->getResponse();
-        return $response->json([
+        return $response->json($this->withResponseData($data, $code));
+    }
+
+    /**
+     * data模式返回数据
+     * @param $data
+     * @param $code
+     * @return array
+     * @author pyh
+     * @time 2018/7/19
+     */
+    public function withResponseData($data, $code)
+    {
+        return [
             $this->status_code_field_name => $code,
             HttpResponseEnum::RESPONSE_DATA_FIELD_NAME => $data,
-        ]);
+        ];
     }
 }
