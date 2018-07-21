@@ -45,6 +45,7 @@ class RegisterController extends Controller
             DB::rollback();
             throw $exception;
         } catch (\Throwable $exception) {
+            dd($exception);
             throw $exception;
         }
     }

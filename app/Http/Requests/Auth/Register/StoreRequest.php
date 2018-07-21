@@ -32,4 +32,10 @@ class StoreRequest extends FormRequest
             'password' => 'required|string|min:6|confirmed',
         ];
     }
+    public function messages()
+    {
+        return [
+            'phone.unique'=> '手机'
+        ];
+    }
 }

@@ -33,5 +33,5 @@ Route::group(['prefix' => 'auth','namespace'=>'Auth'], function () {
 });
 
 Route::group(['prefix' => 'chatroom','namespace'=>'Chatroom'], function () {
-    Route::get('/', 'ChatroomController@testUser');//聊天室测试
+    Route::get('/', 'ChatroomController@test');//聊天室测试
 });
